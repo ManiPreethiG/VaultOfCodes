@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My To-Do List</title>
+    <style> 
+    body { 
+    margin: 25px 75px;
+    }
+
+.container {
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    height: 900px;
+}
+
+div {
+    margin-bottom: 20px;
+}
+
+h1 {
+    color: #ffffff;
+    background-color: #000000;
+    padding: 20px 20px;
+    border-radius:5px;
+    margin:10px;
+}
+
+input[type="text"] {
+    padding: 8px;
+    width:70%;
+    height:20px;
+    
+}
+
+button {
+    background-color: #0ff5ed;
+    color: #000000;
+    border: none;
+    padding: 8px;
+    height:40px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin:15px;
+}
+CDbutton {
+    background-color: #00ffbb;
+    color: #000000;
+    border: none;
+    padding: 8px 8px;
+    height:20px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin:15px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    background-color: #f2f0f0;
+    border: 1px solid #ddd;
+    height:50px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    display: flex;
+    width:70%;
+    align-items: center;
+    margin-left:230px;
+    justify-content: center;
+}
+
+@media only screen and (max-width:500px)
+{
+    body
+    {
+        margin: 20px 20px;
+    }
+    li 
+    {
+    margin-left:10px;
+    width:90%;
+    overflow: auto;
+    }
+}
+
+</style>
+</head>
+<body>
+    <div class="container">
+        <h1>My To-Do List</h1>
+        <div>
+            <input type="text" id="taskInput" placeholder="Add a new task...">
+            <button onclick="addTask()">Add Task</button>
+        </div>
+        <div>
+            <h2>Pending Tasks</h2>
+            <ul id="pendingTasks"></ul>
+        </div>
+        <div>
+            <h2>Completed Tasks</h2>
+            <ul id="completedTasks"></ul>
+        </div>
+    </div>
+    <script>
+function addTask() {
+    var taskInput = document.getElementById('taskInput');
+    var taskText = taskInput.value;
+
+    if (taskText.trim() !== '') {
+        var listItem = document.createElement('li');
+        listItem.textContent = taskText;
+
+        var doneButton = document.createElement('CDbutton');
+        doneButton.textContent = 'Done';
+        doneButton.onclick = function() {
+            completeTask(listItem);
+        };
+
+        var deleteButton = document.createElement('CDbutton');
+        deleteButton.textContent = 'Delete';
+        deleteButton.onclick = function() {
+            listItem.remove();
+        };
+
+        listItem.appendChild(doneButton);
+        listItem.appendChild(deleteButton);
+        document.getElementById('pendingTasks').appendChild(listItem);
+
+        taskInput.value = '';
+    }
+}
+
+function completeTask(task) {
+    document.getElementById('completedTasks').appendChild(task);
+    task.querySelector('CDbutton').remove(); // Remove the "Done" button
+}
+</script>
+</body>
+</html>
